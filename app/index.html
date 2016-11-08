@@ -1,34 +1,46 @@
-<!doctype html>
-<html lang="en" ng-app="app">
-
+<html ng-app="app" flow-init
+      flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]"
+      flow-files-submitted="$flow.upload()">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Angular Material style sheet -->
-    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+  <title>Image</title>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+  <script src="ng-flow-standalone.min.js"></script>
+  <script src="scripts/app.js"></script>
+  <script src="scripts/controllers/TemplateController.js"></script>
+  <script src="scripts/services/TemplateService.js"></script>
+  <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css"
+        rel="stylesheet"/>
+  <style>
+    .thumbnail {
+      max-width: 200px; max-height: 150px; line-height: 20px; margin-bottom: 5px;
+    }
+  </style>
 </head>
-
 <body>
-    <!--
-    Your HTML content here
-  -->
-    <!-- Angular Material requires Angular.js Libraries -->
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
-    <!-- Angular Material Library -->
-    <script src="//ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.1/angular-ui-router.min.js "></script>
-    <script src="scripts/app.js "></script>
-    <script src="scripts/routes.js "></script>
-    <script src="scripts/services/TemplateService.js "></script>
-    <script src="scripts/controllers/TemplateController.js "></script>
-    <div ui-view>
+
+<div class="container" ng-controller="TemplateController">
+  <h1>flow image example</h1>
+  <hr class="soften"/>
+
+  <div>
+    <div class="thumbnail" ng-hide="$flow.files.length">
+      <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&text=no+image" />
+    </div>
+    <div class="thumbnail" ng-show="$flow.files.length">
+      <img flow-img="$flow.files[0]" />
+    </div>
+    <div>
+      <a href="#" class="btn" ng-hide="$flow.files.length" flow-btn flow-attrs="{accept:'image/*'}">Select image</a>
+      <a href="#" class="btn" ng-show="$flow.files.length" flow-btn flow-attrs="{accept:'image/*'}">Change</a>
+      <a href="#" class="btn btn-danger" ng-show="$flow.files.length"
+         ng-click="$flow.cancel()">
+        Remove
+      </a>
+    </div>
+    <p>
+      Only PNG,GIF,JPG files allowed.
+    </p>
+  </div>
 </div>
 </body>
-
 </html>
-<!--
-Copyright 2016 Google Inc. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that can be in foundin the LICENSE file at http://material.angularjs.org/license.
--->

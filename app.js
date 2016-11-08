@@ -15,6 +15,8 @@ app.use(express.static('app'));
 
 app.use(require('./app/routes'));
 
+//send to azure here? or in the routes file
+
 var server = app.listen(port, function () {
 	var host = server.address().address
 	var port = server.address().port;
