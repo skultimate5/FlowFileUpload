@@ -7,4 +7,10 @@ window.angular.module('app').controller('TemplateController', ['$scope', 'Templa
 	.error(function(error){
 		console.log(error);
 	})
+
+	$scope.$on('flow::fileAdded', function (event, $flow, flowFile) {
+		console.log($flow);
+		console.log(flowFile);
+	  event.preventDefault();//prevent file from uploading 
+	});
 }]);
